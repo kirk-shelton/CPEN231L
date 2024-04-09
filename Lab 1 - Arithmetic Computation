@@ -1,0 +1,33 @@
+;**********************************************************************************************
+; Author: Kirk Shelton
+; Lab 1:
+; Date Created: January 30, 2024
+; Last Modified: January 30, 2024
+; Description:
+; Inputs: Vx vy Vz
+; Outputs:
+;**********************************************************************************************
+
+      AREA  MyData, DATA, READWRITE, ALIGN=2
+Vx  RN            R7;
+Vy  DCB     0;
+Vz  DCB     0;
+
+      AREA MyCode, CODE, READONLY, ALIGN=2
+      EXPORT __main
+__main
+            MOV R5, Vx ; make copy of Vx in R5
+            LSL R5, R5, #3 ; R5 <- 8*R5=8*Vx
+            SUB R5, R5, Vx ; R5 <- R5-Vx=8*Vx=7*Vx
+            ADD R5, #120
+            LDR R0, =Vy ; R0 <- address of Vy
+            
+            
+            STR R5, [R0] ; Vy <- R5
+            LSR R5, #3 ; R5 <- R5/8=Vy/8
+            ADD R5, #25
+            
+            LDR R0, =Vz;
+            STR R5, [R0] ;                                  
+            
+      END
